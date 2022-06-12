@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import io.micronaut.core.io.ResourceResolver;
 import io.micronaut.core.io.scan.ClassPathResourceLoader;
+import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
 import one.microstream.storage.embedded.types.EmbeddedStorageManager;
 
 
@@ -18,6 +19,14 @@ public class DB
 		ClassPathResourceLoader loader = new ResourceResolver().getLoader(ClassPathResourceLoader.class).get();
 		Optional<URL> resource = loader.getResource("microstream.xml");
 		
+		System.setProperty("aws.region", "eu-central-1");
+		
+		//@formatter:off
+		storageManager = EmbeddedStorageConfiguration.load(
+			resource.get().getPath())
+			.createEmbeddedStorageFoundation()
+			.createEmbeddedStorageManager(root)
+			.start();
 	}
 	
 }

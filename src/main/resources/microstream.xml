@@ -1,3 +1,8 @@
 <properties>
     <property name="storage-directory" value ="microstreamstoragedemo" />
+    <property name="channel-count" value="4" />
+    <property name="storage-filesystem.aws.s3.credentials.type" value="static" />
+    <property name="storage-filesystem.aws.s3.credentials.access-key-id" value="" />
+    <property name="storage-filesystem.aws.s3.credentials.secret-access-key" value="" />
+    <property name="storage-filesystem.aws.s3.credentials.region" value="eu-central-1" />
 </properties>
