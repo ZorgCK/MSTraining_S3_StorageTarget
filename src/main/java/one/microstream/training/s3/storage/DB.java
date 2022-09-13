@@ -37,7 +37,7 @@ public class DB
         );
         
         String S3bucketname = "microstreamstoragedemo";
-        storageManager = EmbeddedStorage.start(fileSystem.ensureDirectoryPath(S3bucketname));
+        storageManager = EmbeddedStorage.start(root, fileSystem.ensureDirectoryPath(S3bucketname));
 	}
 	
 }
