@@ -1,12 +1,11 @@
 package one.microstream.training.s3.storage;
 
-import java.net.URL;
-import java.util.Optional;
+import org.eclipse.store.afs.aws.s3.types.S3Connector;
+import org.eclipse.store.afs.blobstore.types.BlobStoreFileSystem;
+import org.eclipse.store.storage.embedded.types.EmbeddedStorage;
+import org.eclipse.store.storage.embedded.types.EmbeddedStorageManager;
 
-import io.micronaut.core.io.ResourceResolver;
-import io.micronaut.core.io.scan.ClassPathResourceLoader;
-import one.microstream.storage.embedded.configuration.types.EmbeddedStorageConfiguration;
-import one.microstream.storage.embedded.types.EmbeddedStorageManager;
+import one.microstream.training.s3.utils.S3Utils;
 
 
 public class DB
@@ -16,17 +15,13 @@ public class DB
 	
 	static
 	{
-		ClassPathResourceLoader loader = new ResourceResolver().getLoader(ClassPathResourceLoader.class).get();
-		Optional<URL> resource = loader.getResource("microstream.xml");
+		BlobStoreFileSystem S3Filesystem = BlobStoreFileSystem.New(
+			S3Connector.Caching(S3Utils.getS3Client()));
 		
 		System.setProperty("aws.region", "eu-central-1");
 		
 		//@formatter:off
-		storageManager = EmbeddedStorageConfiguration.load(
-			resource.get().getPath())
-			.createEmbeddedStorageFoundation()
-			.createEmbeddedStorageManager(root)
-			.start();
+		storageManager = EmbeddedStorage.start(S3Filesystem.ensureDirectoryPath("microstreamstoragedemo"));
 	}
 	
 }
