@@ -21,7 +21,7 @@ public class DB
 		System.setProperty("aws.region", "eu-central-1");
 		
 		//@formatter:off
-		storageManager = EmbeddedStorage.start(S3Filesystem.ensureDirectoryPath("microstreamstoragedemo"));
+		storageManager = EmbeddedStorage.start(root, S3Filesystem.ensureDirectoryPath("microstreamstoragedemo"));
 	}
 	
 }
